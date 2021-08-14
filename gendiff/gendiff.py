@@ -11,7 +11,6 @@ def generate_diff(file_path1, file_path2):
     file1 = json.load(open(file_path1))
     file2 = json.load(open(file_path2))
     keys = file1.keys() | file2.keys()
-    diff = {}
     a = []
     for key in sorted(keys):
         if key in file1 and key in file2:
