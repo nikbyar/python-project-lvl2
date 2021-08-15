@@ -1,0 +1,23 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+on:
+  - push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: |
+          pip install poetry
+          make install
+      - name: Run linter
+        run: |
+          make lint
+      - name: Run tests
+        run: |
+          make test
