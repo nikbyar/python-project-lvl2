@@ -6,3 +6,5 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/90eb7fbe0c75fbfc7479/test_coverage)](https://codeclimate.com/github/nikbyar/python-project-lvl2/test_coverage)
 
 [![asciicast](https://asciinema.org/a/430597.svg)](https://asciinema.org/a/430597)
+
+[![asciicast](https://asciinema.org/a/430623.svg)](https://asciinema.org/a/430623)
