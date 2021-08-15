@@ -24,4 +24,4 @@ def generate_diff(file_path1, file_path2):
         elif key in file2:
             a.append('{0}+ {1}: {2} \n'.format(TWO_SPACES, key, file2[key]))
     a = '{{\n{}}}'.format(''.join(a))
-    print(''.join(a))
+    return ''.join(a)
