@@ -1,19 +1,19 @@
 
-from gendiff.gendiff_json import generate_diff_json
-from gendiff.gendiff_yml import generate_diff_yml
+from gendiff.processor import process_to_python_format
 from gendiff.parser import parse_files
 from gendiff.tests.fixtures.test_string import STRING
+import pytest
 
 
-def test_generate_diff_json():
-    test1 = 'gendiff/tests/fixtures/test1.json'
-    test2 = 'gendiff/tests/fixtures/test2.json'
-    file1, file2 = generate_diff_json(test1, test2)
-    assert parse_files(file1, file2) == STRING
+TEST1_JSON = 'gendiff/tests/fixtures/test1.json'
+TEST2_JSON = 'gendiff/tests/fixtures/test2.json'
+TEST1_YML = 'gendiff/tests/fixtures/test1.yml'
+TEST2_YML = 'gendiff/tests/fixtures/test2.yml'
 
 
-def test_generate_diff_yml():
-    test1 = 'gendiff/tests/fixtures/test1.yml'
-    test2 = 'gendiff/tests/fixtures/test2.yml'
-    file1, file2 = generate_diff_yml(test1, test2)
+@pytest.mark.parametrize(
+    "input1, input2", [(TEST1_JSON, TEST2_JSON), (TEST1_YML, TEST2_YML)]
+)
+def test_generate_diff_json(input1, input2):
+    file1, file2 = process_to_python_format(input1, input2)
     assert parse_files(file1, file2) == STRING
