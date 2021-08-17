@@ -14,6 +14,6 @@ TEST2_YML = 'gendiff/tests/fixtures/test2.yml'
 @pytest.mark.parametrize(
     "input1, input2", [(TEST1_JSON, TEST2_JSON), (TEST1_YML, TEST2_YML)]
 )
-def test_generate_diff_json(input1, input2):
+def test_generate_diff(input1, input2):
     file1, file2 = process_to_python_format(input1, input2)
     assert parse_files(file1, file2) == STRING
