@@ -26,7 +26,7 @@ def test_generate_diff(input1, input2):
 @pytest.mark.parametrize(
     "input_nested1, input_nested2", 
     [(TEST3_NESTED_JSON1, TEST3_NESTED_JSON2),
-    (TEST4_NESTED_YML1, TEST4_NESTED_YML1)]
+    (TEST4_NESTED_YML1, TEST4_NESTED_YML2)]
 )
 def test_generate_diff_nested(input_nested1, input_nested2):
     file1, file2 = process_to_python_format(input_nested1, input_nested2)
