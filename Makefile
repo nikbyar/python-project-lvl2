@@ -38,5 +38,8 @@ selfcheck:
 check: selfcheck test lint
 
 
+.PHONY: gendiff
+
+
 
 
