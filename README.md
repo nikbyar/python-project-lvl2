@@ -5,7 +5,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/6c1bd682a9d1b6d63dd0/maintainability)](https://codeclimate.com/github/nikbyar/python-project-lvl2/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/6c1bd682a9d1b6d63dd0/test_coverage)](https://codeclimate.com/github/nikbyar/python-project-lvl2/test_coverage)
 
-# How program works:
+### How program works:
 Generate diff between JSON files:
 [![asciicast](https://asciinema.org/a/578635.svg)](https://asciinema.org/a/578635)
 
