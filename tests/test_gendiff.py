@@ -1,5 +1,5 @@
 import pytest
-from tests.fixtures.diff_string import diff_string_json, diff_string_yaml
+from tests.fixtures.diff_string import diff_string, diff_string_yaml
 from gendiff.scripts.gendiff import generate_diff
 
 
@@ -15,7 +15,7 @@ def second_file_json():
 
 def test_generate_diff_json(first_file_json, second_file_json):
     result = generate_diff(first_file_json, second_file_json)
-    assert result == diff_string_json
+    assert result == diff_string
 
 
 @pytest.fixture
