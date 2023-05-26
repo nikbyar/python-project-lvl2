@@ -1,5 +1,5 @@
 import pytest
-from tests.fixtures.diff_string import diff_string, diff_string_yaml
+from tests.fixtures.diff_string import diff_string
 from gendiff.scripts.gendiff import generate_diff
 
 
@@ -30,4 +30,4 @@ def second_file_yaml():
 
 def test_generate_diff_yaml(first_file_yaml, second_file_yaml):
     result = generate_diff(first_file_yaml, second_file_yaml)
-    assert result == diff_string_yaml
+    assert result == diff_string
