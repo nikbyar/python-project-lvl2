@@ -1,33 +1,63 @@
 import pytest
-from tests.fixtures.diff_string import diff_string
+from tests.fixtures.diff_string import diff_string, diff_string_nested
 from gendiff.scripts.gendiff import generate_diff
 
 
 @pytest.fixture
-def first_file_json():
+def file1_json():
     return 'tests/fixtures/fixture_file1.json'
 
 
 @pytest.fixture
-def second_file_json():
+def file2_json():
     return 'tests/fixtures/fixture_file2.json'
 
 
-def test_generate_diff_json(first_file_json, second_file_json):
-    result = generate_diff(first_file_json, second_file_json)
+def test_generate_diff_json(file1_json, file2_json):
+    result = generate_diff(file1_json, file2_json)
     assert result == diff_string
 
 
 @pytest.fixture
-def first_file_yaml():
+def file1_yaml():
     return 'tests/fixtures/fixture_file1.yaml'
 
 
 @pytest.fixture
-def second_file_yaml():
+def file2_yaml():
     return 'tests/fixtures/fixture_file2.yaml'
 
 
-def test_generate_diff_yaml(first_file_yaml, second_file_yaml):
-    result = generate_diff(first_file_yaml, second_file_yaml)
+def test_generate_diff_yaml(file1_yaml, file2_yaml):
+    result = generate_diff(file1_yaml, file2_yaml)
     assert result == diff_string
+
+
+@pytest.fixture
+def file1_json_nested():
+    return 'tests/fixtures/fixture_file1_nested.json'
+
+
+@pytest.fixture
+def file2_json_nested():
+    return 'tests/fixtures/fixture_file2_nested.json'
+
+
+def test_generate_diff_json_nested(file1_json_nested, file2_json_nested):
+    result = generate_diff(file1_json_nested, file2_json_nested)
+    assert result == diff_string_nested
+
+
+@pytest.fixture
+def file1_yaml_nested():
+    return 'tests/fixtures/fixture_file1_nested.yaml'
+
+
+@pytest.fixture
+def file2_yaml_nested():
+    return 'tests/fixtures/fixture_file2_nested.yaml'
+
+
+def test_generate_diff_yaml_nested(file1_yaml_nested, file2_yaml_nested):
+    result = generate_diff(file1_yaml_nested, file2_yaml_nested)
+    assert result == diff_string_nested
