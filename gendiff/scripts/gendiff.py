@@ -36,11 +36,13 @@ def generate_diff(file1, file2):
     diff = f'{{\n{diff}}}'
     return diff
 
+
 def generate_diff_nested(file1, file2):
     file1 = define_format(file1)
     file2 = define_format(file2)
 
     diff = {}
+
     def inner(file1, file2, merged_dict):
         all_keys = file1.keys() | file2.keys()
 
@@ -53,7 +55,8 @@ def generate_diff_nested(file1, file2):
                 merged_dict[key] = ['unchanged', file1.get(key)]
             else:
                 merged_dict[key] = ['changed']
-                if isinstance(file1.get(key), dict) and isinstance(file2.get(key), dict):
+                if isinstance(file1.get(key), dict) and \
+                        isinstance(file2.get(key), dict):
                     merged_dict[key].append({})
                     inner(file1.get(key), file2.get(key), merged_dict[key][1])
                 else:
@@ -66,6 +69,7 @@ def build_diff_tree(pre_diff):
     SPACES = '    '
     SPACES_PLUS = '  + '
     SPACES_MINUS = '  - '
+
     def walk(value, diff, depth):
         if isinstance(value, dict):
             diff = '{'
@@ -79,22 +83,26 @@ def build_diff_tree(pre_diff):
 
                 elif value[key][0] == 'changed' and len(value[key]) == 2:
                     diff += f'\n{SPACES * depth}{key}: '
-                    diff += walk(value[key][1], diff, depth+1)
+                    diff += walk(value[key][1], diff, depth + 1)
                 elif value[key][0] == 'changed' and len(value[key]) == 3:
                     diff += f'\n{SPACES * (depth - 1) + SPACES_MINUS}{key}: '
                     diff += walk(value[key][1], diff, depth + 1)
                     diff += f'\n{SPACES * (depth - 1) + SPACES_PLUS}{key}: '
                     diff += walk(value[key][2], diff, depth + 1)
-                elif value[key][0] == 'added' and isinstance(value[key][1], dict):
+                elif value[key][0] == 'added' \
+                        and isinstance(value[key][1], dict):
                     diff += f'\n{SPACES * (depth - 1) + SPACES_PLUS}{key}: '
                     diff += walk(value[key][1], diff, depth + 1)
-                elif value[key][0] == 'added' and not isinstance(value[key][1], dict):
+                elif value[key][0] == 'added' \
+                        and not isinstance(value[key][1], dict):
                     diff += f'\n{SPACES * (depth - 1) + SPACES_PLUS}{key}: ' \
                             f'{value[key][1]}'
-                elif value[key][0] == 'deleted' and isinstance(value[key][1], dict):
+                elif value[key][0] == 'deleted' \
+                        and isinstance(value[key][1], dict):
                     diff += f'\n{SPACES * (depth - 1) + SPACES_MINUS}{key}: '
                     diff += walk(value[key][1], diff, depth + 1)
-                elif value[key][0] == 'deleted' and not isinstance(value[key][1], dict):
+                elif value[key][0] == 'deleted' \
+                        and not isinstance(value[key][1], dict):
                     diff += f'\n{SPACES * (depth - 1) + SPACES_MINUS}{key}: ' \
                             f'{value[key][1]}'
                 elif value[key][0] == 'unchanged':
@@ -107,7 +115,8 @@ def build_diff_tree(pre_diff):
 
 
 def replace(diff):
-    return diff.replace('False', 'false').replace('None', 'null').replace('True', 'true')
+    return diff.replace('False', 'false').replace('None', 'null').\
+        replace('True', 'true')
 
 
 def stylish(file1, file2):
@@ -119,6 +128,7 @@ def main():
     first_file, second_file = get_parser()
     pre_diff = generate_diff_nested(first_file, second_file)
     print(replace(build_diff_tree(pre_diff)))
+
 
 if __name__ == '__main__':
     first_file, second_file = get_parser()
