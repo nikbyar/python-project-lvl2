@@ -1,10 +1,10 @@
 diff_string = '''{
-  - follow: False
+  - follow: false
     host: hexlet.io
   - proxy: 123.234.53.22
   - timeout: 50
   + timeout: 20
-  + verbose: True
+  + verbose: true
 }'''
 
 diff_string_nested = '''{
@@ -20,7 +20,7 @@ diff_string_nested = '''{
         }
         setting6: {
             doge: {
-              - wow:
+              - wow: 
               + wow: so much
             }
             key: value
