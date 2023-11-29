@@ -1,6 +1,6 @@
 import pytest
-from tests.fixtures.diff_string import diff_string, diff_string_nested
-from gendiff.scripts.gendiff import generate_diff, generate_diff_nested, build_diff_tree, stylish
+from tests.fixtures.diff_string import diff_string, diff_string_stylish_nested, diff_string_plain
+from gendiff.scripts.gendiff import generate_diff, generate_diff_nested, build_diff_tree, stylish, plain
 
 
 @pytest.fixture
@@ -45,7 +45,7 @@ def file2_json_nested():
 
 def test_generate_diff_json_nested(file1_json_nested, file2_json_nested):
     result = stylish(file1_json_nested, file2_json_nested)
-    assert result == diff_string_nested
+    assert result == diff_string_stylish_nested
 
 
 @pytest.fixture
@@ -60,4 +60,14 @@ def file2_yaml_nested():
 
 def test_generate_diff_yaml_nested(file1_yaml_nested, file2_yaml_nested):
     result = stylish(file1_yaml_nested, file2_yaml_nested)
-    assert result == diff_string_nested
+    assert result == diff_string_stylish_nested
+
+
+def test_generate_diff_plain_json(file1_json_nested, file2_json_nested):
+    result = plain(file1_json_nested, file2_json_nested)
+    assert result == diff_string_plain
+
+
+def test_generate_diff_plain_yaml(file1_yaml_nested, file2_yaml_nested):
+    result = plain(file1_yaml_nested, file2_yaml_nested)
+    assert result == diff_string_plain

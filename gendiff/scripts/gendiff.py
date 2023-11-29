@@ -129,6 +129,8 @@ def main():
     pre_diff = generate_diff_nested(first_file, second_file)
     print(replace(build_diff_tree(pre_diff)))
 
+def plain(file1, file2):
+    print('123')
 
 if __name__ == '__main__':
     first_file, second_file = get_parser()
