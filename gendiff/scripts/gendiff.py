@@ -19,7 +19,7 @@ def define_format(file):
     return file
 
 
-def generate_diff(file1, file2):
+def generate_diff_(file1, file2):
     file1 = define_format(file1)
     file2 = define_format(file2)
     diff = ''
@@ -114,24 +114,64 @@ def build_diff_tree(pre_diff):
     return walk(pre_diff, ' ', 1)
 
 
-def replace(diff):
+def build_diff_plain(pre_diff):
+    def walk(value, diff, path):
+        diff = ""
+        if isinstance(value, dict):
+            for key in value.keys():
+                if not isinstance(value[key], list):
+                    if isinstance(value[key], dict):
+                        walk(value[key], diff, path + key + '.')
+                elif value[key][0] == 'changed' and len(value[key]) == 2:
+                    diff += walk(value[key][1], diff, path + key + '.')
+                elif value[key][0] == 'changed' and len(value[key]) == 3:
+                    prev_value = f"'{value[key][1]}'"
+                    new_value = f"'{value[key][2]}'"
+                    if isinstance(value[key][1], dict):
+                        prev_value = '[complex value]'
+                    if isinstance(value[key][2], dict):
+                        new_value = '[complex value]'
+                    diff += f"Property '{path}{key}' was updated. From {prev_value} to {new_value}\n"
+                elif value[key][0] == 'added' \
+                        and isinstance(value[key][1], dict):
+                    diff += f"Property '{path}{key}' was added with value: [complex value]\n"
+                elif value[key][0] == 'added' \
+                        and not isinstance(value[key][1], dict):
+                    diff += f"Property '{path}{key}' was added with value: '{value[key][1]}'\n"
+                elif value[key][0] == 'deleted':
+                    diff += f"Property '{path}{key}' was removed\n"
+        if not isinstance(value, dict):
+            return str(value)
+        return diff
+    return '\n' + walk(pre_diff, '', '')
+
+
+def replace_stylish(diff):
     return diff.replace('False', 'false').replace('None', 'null').\
         replace('True', 'true')
 
 
+def replace_plain(diff):
+    return diff.replace("'False'", 'false').replace("'None'", 'null').\
+        replace("'True'", 'true').rstrip()
+
+
 def stylish(file1, file2):
     pre_diff = generate_diff_nested(file1, file2)
-    return replace(build_diff_tree(pre_diff))
+    return replace_stylish(build_diff_tree(pre_diff))
+
+
+def plain(file1, file2):
+    pre_diff = generate_diff_nested(file1, file2)
+    return replace_plain(build_diff_plain(pre_diff))
 
 
 def main():
     first_file, second_file = get_parser()
     pre_diff = generate_diff_nested(first_file, second_file)
-    print(replace(build_diff_tree(pre_diff)))
+    print(replace_stylish(build_diff_tree(pre_diff)))
 
-def plain(file1, file2):
-    print('123')
 
 if __name__ == '__main__':
     first_file, second_file = get_parser()
-    stylish(first_file, second_file)
+    plain(first_file, second_file)

@@ -1,6 +1,6 @@
 import pytest
 from tests.fixtures.diff_string import diff_string, diff_string_stylish_nested, diff_string_plain
-from gendiff.scripts.gendiff import generate_diff, generate_diff_nested, build_diff_tree, stylish, plain
+from gendiff.scripts.gendiff import generate_diff_, generate_diff_nested, build_diff_tree, stylish, plain
 
 
 @pytest.fixture
