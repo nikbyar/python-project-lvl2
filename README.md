@@ -14,3 +14,7 @@ Generate diff between YAML files or JSON and YAML:
 
 Generate diff between nested YAML or JSON files:
 [![asciicast](https://asciinema.org/a/623986.svg)](https://asciinema.org/a/623986)
+
+Generate diff between nested YAML or JSON files with different output formats 
+(stylish by default or plain):
+[![asciicast](https://asciinema.org/a/624702.svg)](https://asciinema.org/a/624702)
