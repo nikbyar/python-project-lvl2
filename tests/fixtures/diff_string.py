@@ -7,7 +7,7 @@ diff_string = '''{
   + verbose: true
 }'''
 
-diff_string_stylish_nested = '''{
+diff_string_stylish = '''{
     common: {
       + follow: false
         setting1: Value 1

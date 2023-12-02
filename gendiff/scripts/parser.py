@@ -11,4 +11,5 @@ def get_parser():
     args = parser.parse_args()
     first_file = args.first_file
     second_file = args.second_file
-    return first_file, second_file
+    format = args.format
+    return first_file, second_file, format
