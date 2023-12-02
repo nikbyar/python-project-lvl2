@@ -15,13 +15,16 @@ def build_diff_plain(pre_diff):
                         prev_value = '[complex value]'
                     if isinstance(value[key][2], dict):
                         new_value = '[complex value]'
-                    diff += f"Property '{path}{key}' was updated. From {prev_value} to {new_value}\n"
+                    diff += f"Property '{path}{key}' was updated. " \
+                            f"From {prev_value} to {new_value}\n"
                 elif value[key][0] == 'added' \
                         and isinstance(value[key][1], dict):
-                    diff += f"Property '{path}{key}' was added with value: [complex value]\n"
+                    diff += f"Property '{path}{key}' was " \
+                            f"added with value: [complex value]\n"
                 elif value[key][0] == 'added' \
                         and not isinstance(value[key][1], dict):
-                    diff += f"Property '{path}{key}' was added with value: '{value[key][1]}'\n"
+                    diff += f"Property '{path}{key}' was " \
+                            f"added with value: '{value[key][1]}'\n"
                 elif value[key][0] == 'deleted':
                     diff += f"Property '{path}{key}' was removed\n"
         if not isinstance(value, dict):
