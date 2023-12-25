@@ -15,6 +15,10 @@ def build_diff_plain(pre_diff): # noqa: max-complexity=15
                         prev_value = '[complex value]'
                     if isinstance(value[key][2], dict):
                         new_value = '[complex value]'
+                    if isinstance(value[key][1], int):
+                        prev_value = value[key][1]
+                    if isinstance(value[key][2], int):
+                        new_value = value[key][2]
                     diff += f"Property '{path}{key}' was updated. " \
                             f"From {prev_value} to {new_value}\n"
                 elif value[key][0] == 'added' \
