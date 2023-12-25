@@ -18,7 +18,7 @@ def define_format(file):
     return file
 
 
-def generate_pre_diff(file1, file2):
+def generate_pre_diff(file1, file2): # noqa: max-complexity=15
     file1 = define_format(file1)
     file2 = define_format(file2)
 

@@ -1,4 +1,4 @@
-def build_diff_stylish(pre_diff):
+def build_diff_stylish(pre_diff): # noqa: max-complexity=15
     SPACES = '    '
     SPACES_PLUS = '  + '
     SPACES_MINUS = '  - '

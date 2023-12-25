@@ -1,4 +1,4 @@
-def build_diff_plain(pre_diff):
+def build_diff_plain(pre_diff): # noqa: max-complexity=15
     def walk(value, diff, path):
         diff = ""
         if isinstance(value, dict):
