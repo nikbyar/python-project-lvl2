@@ -77,4 +77,3 @@ def test_generate_diff_yaml_plain(file1_yaml_nested, file2_yaml_nested):
 def test_generate_diff_json_output(file1_json_nested, file2_yaml_nested):
     result = generate_diff(file1_json_nested, file2_yaml_nested, 'json')
     assert result == diff_string_json
-

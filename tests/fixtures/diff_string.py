@@ -1,4 +1,3 @@
-import ast
 import json
 
 diff_string = '''{
@@ -53,10 +52,9 @@ diff_string_stylish = '''{
         }
         fee: 100500
     }
-}'''
+}'''  # noqa: W291
 
-diff_string_plain = '''
-Property 'common.follow' was added with value: false
+diff_string_plain = '''Property 'common.follow' was added with value: false
 Property 'common.setting2' was removed
 Property 'common.setting3' was updated. From true to null
 Property 'common.setting4' was added with value: 'blah blah'
