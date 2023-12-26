@@ -5,6 +5,13 @@ description = ""
 authors = ["ivan <nikbyar@gmail.com>"]
 readme = "README.md"
 packages = [{include = "gendiff"}]
+repository = "https://github.com/nikbyar/python-project-lvl2"
+classifiers = [
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -19,6 +26,7 @@ gendiff = "gendiff.scripts.gendiff:main"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^6.0.0"
+
 
 [build-system]
 requires = ["poetry-core"]
