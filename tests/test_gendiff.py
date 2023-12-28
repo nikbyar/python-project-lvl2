@@ -1,7 +1,29 @@
 import pytest
-from tests.fixtures.diff_string import diff_string, diff_string_stylish, \
-    diff_string_plain, diff_string_json
+import json
+
+
 from gendiff.scripts.gendiff import generate_diff
+
+
+with open('tests/fixtures/diff_string', 'r') as f:
+    diff_string = f.read()
+
+
+with open('tests/fixtures/diff_string_stylish', 'r') as f:
+    diff_string_stylish = ''
+    for line in f:
+        if '- wow:' in line:
+            diff_string_stylish += line.rstrip() + ' ' + '\n'
+        else:
+            diff_string_stylish += line
+    diff_string_stylish = diff_string_stylish.rstrip()
+
+
+with open('tests/fixtures/diff_string_plain', 'r') as f:
+    diff_string_plain = f.read()
+
+
+diff_string_json = json.dumps(diff_string_stylish)
 
 
 @pytest.fixture
