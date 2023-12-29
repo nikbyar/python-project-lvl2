@@ -15,6 +15,7 @@ build:
 
 lint:
 	poetry run flake8 gendiff
+	poetry run flake8 tests
 
 
 package-install:

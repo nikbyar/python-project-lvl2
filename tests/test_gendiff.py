@@ -36,7 +36,6 @@ file1_yaml_nested = 'tests/fixtures/fixture_file1_nested.yaml'
 file2_yaml_nested = 'tests/fixtures/fixture_file2_nested.yaml'
 
 
-
 @pytest.mark.parametrize("file1, file2, result", [
     (file1_json, file2_json, diff_string),
     (file1_yaml, file2_yaml, diff_string),
@@ -54,4 +53,3 @@ def test_generate_diff(file1, file2, result):
 ])
 def test_generate_diff_with_format(file1, file2, format, result):
     assert generate_diff(file1, file2, format) == result
-
