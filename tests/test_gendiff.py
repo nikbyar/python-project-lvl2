@@ -47,9 +47,12 @@ def test_generate_diff(file1, file2, result):
 
 
 @pytest.mark.parametrize("file1, file2, format, result", [
+    (file1_json_nested, file2_json_nested, 'stylish', diff_string_stylish),
+    (file1_yaml_nested, file2_yaml_nested, 'stylish', diff_string_stylish),
     (file1_json_nested, file2_json_nested, 'plain', diff_string_plain),
     (file1_yaml_nested, file2_yaml_nested, 'plain', diff_string_plain),
-    (file1_json_nested, file2_yaml_nested, 'json', diff_string_json),
+    (file1_json_nested, file2_json_nested, 'json', diff_string_json),
+    (file1_yaml_nested, file2_yaml_nested, 'json', diff_string_json),
 ])
 def test_generate_diff_with_format(file1, file2, format, result):
     assert generate_diff(file1, file2, format) == result
