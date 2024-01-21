@@ -1,5 +1,5 @@
-from gendiff.scripts.parser import get_parser
-from gendiff.scripts.pre_diff_maker import generate_pre_diff
+from gendiff.parser import get_parser
+from gendiff.pre_diff_maker import generate_pre_diff
 from gendiff.formatters.plain_formatter import make_plain
 from gendiff.formatters.stylish_formatter import make_stylish
 import json
