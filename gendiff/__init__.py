@@ -1,4 +1,4 @@
-from gendiff.scripts.gendiff import generate_diff
-
-
-__all__ = ('generate_diff',)
+# from gendiff.scripts.gendiff import select_format
+#
+#
+# __all__ = ('select_format',)
