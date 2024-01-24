@@ -2,7 +2,7 @@ import pytest
 import json
 
 
-from gendiff.scripts.gendiff import select_format
+from gendiff.scripts.gendiff import generate_diff
 
 
 with open('tests/fixtures/diff_string', 'r') as f:
@@ -43,7 +43,7 @@ file2_yaml_nested = 'tests/fixtures/fixture_file2_nested.yaml'
     (file1_yaml_nested, file2_yaml_nested, diff_string_stylish)
 ])
 def test_generate_diff(file1, file2, result):
-    assert select_format(file1, file2) == result
+    assert generate_diff(file1, file2) == result
 
 
 @pytest.mark.parametrize("file1, file2, format, result", [
@@ -55,4 +55,4 @@ def test_generate_diff(file1, file2, result):
     (file1_yaml_nested, file2_yaml_nested, 'json', diff_string_json),
 ])
 def test_generate_diff_with_format(file1, file2, format, result):
-    assert select_format(file1, file2, format) == result
+    assert generate_diff(file1, file2, format) == result
