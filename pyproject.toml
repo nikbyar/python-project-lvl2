@@ -22,7 +22,7 @@ requests = "^2.31.0"
 
 
 [tool.poetry.scripts]
-gendiff = "gendiff.scripts.gendiff:main"
+gendiff = "gendiff.scripts.main:main"
 
 
 [tool.poetry.group.dev.dependencies]

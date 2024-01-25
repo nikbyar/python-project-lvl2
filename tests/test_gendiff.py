@@ -2,7 +2,7 @@ import pytest
 import json
 
 
-from gendiff.scripts.gendiff import generate_diff
+from gendiff.gendiff import generate_diff
 
 
 with open('tests/fixtures/diff_string', 'r') as f:
