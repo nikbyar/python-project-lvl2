@@ -1,31 +1,4 @@
-# import json
-# import yaml
-#
-#
-# def load_json(file_path):
-#     return json.load(open(file_path))
-#
-#
-# def load_yaml(file_path):
-#     return yaml.safe_load(open(file_path))
-
-
-# def define_format(file):
-#     if file.endswith('.json'):
-#         file = load_json(file)
-#     elif file.endswith('.yaml') or file.endswith('.yml'):
-#         file = load_yaml(file)
-#     return file
-
-from gendiff.data_parser import parse
-from gendiff.format_determiner import determine_format
-
-
-
-
 def generate_pre_diff(file1, file2): # noqa: max-complexity=15
-    file1 = parse(file1, determine_format(file1))
-    file2 = parse(file2, determine_format(file2))
     diff = {}
 
     def inner(file1, file2, merged_dict):
