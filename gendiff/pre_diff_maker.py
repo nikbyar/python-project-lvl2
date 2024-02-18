@@ -1,22 +1,22 @@
-def generate_pre_diff(file1, file2):  # noqa: max-complexity=15
+def generate_pre_diff(dict1, dict2):  # noqa: max-complexity=15
     diff = {}
 
-    def inner(file1, file2, merged_dict):
-        all_keys = file1.keys() | file2.keys()
+    def inner(dict1, dict2, merged_dict):
+        all_keys = dict1.keys() | dict2.keys()
 
         for key in sorted(all_keys):
-            if key not in file1.keys():
-                merged_dict[key] = ['added', file2.get(key)]
-            elif key not in file2.keys():
-                merged_dict[key] = ['deleted', file1.get(key)]
-            elif file1[key] == file2[key]:
-                merged_dict[key] = ['unchanged', file1.get(key)]
-            elif isinstance(file1.get(key), dict) and \
-                    isinstance(file2.get(key), dict):
+            if key not in dict1.keys():
+                merged_dict[key] = ['added', dict2.get(key)]
+            elif key not in dict2.keys():
+                merged_dict[key] = ['deleted', dict1.get(key)]
+            elif dict1[key] == dict2[key]:
+                merged_dict[key] = ['unchanged', dict1.get(key)]
+            elif isinstance(dict1.get(key), dict) and \
+                    isinstance(dict2.get(key), dict):
                 merged_dict[key] = ['changed', {}]
-                inner(file1.get(key), file2.get(key), merged_dict[key][1])
+                inner(dict1.get(key), dict2.get(key), merged_dict[key][1])
             else:
-                merged_dict[key] = ['changed', file1.get(key), file2.get(key)]
+                merged_dict[key] = ['changed', dict1.get(key), dict2.get(key)]
 
-    inner(file1, file2, diff)
+    inner(dict1, dict2, diff)
     return diff
