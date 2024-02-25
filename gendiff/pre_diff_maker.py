@@ -13,7 +13,7 @@ def generate_pre_diff(dict1, dict2):  # noqa: max-complexity=15
                 merged_dict[key] = ['unchanged', dict1.get(key)]
             elif isinstance(dict1.get(key), dict) and \
                     isinstance(dict2.get(key), dict):
-                merged_dict[key] = ['changed', {}]
+                merged_dict[key] = ['nested', {}]
                 inner(dict1.get(key), dict2.get(key), merged_dict[key][1])
             else:
                 merged_dict[key] = ['changed', dict1.get(key), dict2.get(key)]

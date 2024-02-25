@@ -14,10 +14,10 @@ def build_diff_stylish(pre_diff): # noqa: max-complexity=15
                     elif not isinstance(value[key], dict):
                         diff += f'\n{SPACES * depth}{key}: {value[key]}'
 
-                elif value[key][0] == 'changed' and len(value[key]) == 2:
+                elif value[key][0] == 'nested':
                     diff += f'\n{SPACES * depth}{key}: '
                     diff += walk(value[key][1], diff, depth + 1)
-                elif value[key][0] == 'changed' and len(value[key]) == 3:
+                elif value[key][0] == 'changed':
                     diff += f'\n{SPACES * (depth - 1) + SPACES_MINUS}{key}: '
                     diff += walk(value[key][1], diff, depth + 1)
                     diff += f'\n{SPACES * (depth - 1) + SPACES_PLUS}{key}: '

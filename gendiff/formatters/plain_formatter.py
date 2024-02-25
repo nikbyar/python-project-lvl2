@@ -6,9 +6,9 @@ def build_diff_plain(pre_diff): # noqa: max-complexity=15
                 if not isinstance(value[key], list):
                     if isinstance(value[key], dict):
                         walk(value[key], diff, path + key + '.')
-                elif value[key][0] == 'changed' and len(value[key]) == 2:
+                elif value[key][0] == 'nested':
                     diff += walk(value[key][1], diff, path + key + '.')
-                elif value[key][0] == 'changed' and len(value[key]) == 3:
+                elif value[key][0] == 'changed':
                     prev_value = f"{value[key][1]}"
                     new_value = f"{value[key][2]}"
                     if isinstance(value[key][1], str):
