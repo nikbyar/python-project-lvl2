@@ -9,7 +9,7 @@ import json
 def generate_diff(first_file, second_file, file_format='stylish'):
     parsed_file1 = parse(first_file, determine_format(first_file))
     parsed_file2 = parse(second_file, determine_format(second_file))
-    pre_diff = generate_pre_diff(parsed_file1, parsed_file2)
+    pre_diff = generate_pre_diff(parsed_file1, parsed_file2, {})
     if file_format == 'plain':
         return make_plain(pre_diff)
     elif file_format == 'stylish':
