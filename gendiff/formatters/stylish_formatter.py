@@ -160,7 +160,6 @@ def transform_added_node(node, value_node, depth):
 def transform_deleted_node(node, value_node, depth):
     if isinstance(value_node, dict):
         result = f'\n{SPACES * (depth - 1) + SPACES_MINUS}{node}: '
-        print(1)
         result += transform_value(value_node, depth + 1)
         return result
     else:
