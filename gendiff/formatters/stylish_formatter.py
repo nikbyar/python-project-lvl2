@@ -1,3 +1,6 @@
+import json
+
+
 SPACES = '    '
 SPACES_PLUS = '  + '
 SPACES_MINUS = '  - '
@@ -96,7 +99,7 @@ def transform_value(value, depth):
         return result
 
     else:
-        return str(value)
+        return transform_bool(value)
 
 
 def walk(diff, depth): # noqa: max-complexity=7
@@ -123,7 +126,7 @@ def build_diff_stylish(pre_diff):
 
 
 def transform_unchanged_node(node, value_node, depth):
-    return f'\n{SPACES * depth}{node}: {value_node}'
+    return f'\n{SPACES * depth}{node}: {transform_bool(value_node)}'
 #
 # def transform_dict_node(node, value_node, depth):
 #     if isinstance(value_node, dict):
@@ -154,7 +157,8 @@ def transform_added_node(node, value_node, depth):
         result += transform_value(value_node, depth + 1)
         return result
     else:
-        return f'\n{SPACES * (depth - 1) + SPACES_PLUS}{node}: {value_node}'
+        return f'\n{SPACES * (depth - 1) + SPACES_PLUS}{node}: ' \
+               f'{transform_bool(value_node)}'
 
 
 def transform_deleted_node(node, value_node, depth):
@@ -163,13 +167,20 @@ def transform_deleted_node(node, value_node, depth):
         result += transform_value(value_node, depth + 1)
         return result
     else:
-        return f'\n{SPACES * (depth - 1) + SPACES_MINUS}{node}: {value_node}'
+        return f'\n{SPACES * (depth - 1) + SPACES_MINUS}{node}: ' \
+               f'{transform_bool(value_node)}'
 
 
-def replace_bools_in_stylish(diff):
-    return diff.replace('False', 'false').replace('None', 'null').\
-        replace('True', 'true')
+def transform_bool(value):
+    if value in (True, False, None):
+        return json.dumps(value)
+    return str(value)
+
+# def replace_bools_in_stylish(diff):
+#     return diff.replace('False', 'false').replace('None', 'null').\
+#         replace('True', 'true')
 
 
 def make_stylish(pre_diff):
-    return replace_bools_in_stylish(build_diff_stylish(pre_diff))
+    # return replace_bools_in_stylish(build_diff_stylish(pre_diff))
+    return build_diff_stylish(pre_diff)
