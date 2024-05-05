@@ -1,68 +1,38 @@
-# def build_diff_plain(pre_diff): # noqa: max-complexity=15
-#     def walk(value, diff, path):
-#         diff = ""
-#         if isinstance(value, dict):
-#             for key in value.keys():
-#                 if not isinstance(value[key], list):
-#                     if isinstance(value[key], dict):
-#                         walk(value[key], diff, path + key + '.')
-#                 elif value[key][0] == 'nested':
-#                     diff += walk(value[key][1], diff, path + key + '.')
-#                 elif value[key][0] == 'changed':
-#                     prev_value = f"{value[key][1]}"
-#                     new_value = f"{value[key][2]}"
-#                     if isinstance(value[key][1], str):
-#                         prev_value = f"'{value[key][1]}'"
-#                     if isinstance(value[key][2], str):
-#                         new_value = f"'{value[key][2]}'"
-#                     if isinstance(value[key][1], dict):
-#                         prev_value = '[complex value]'
-#                     if isinstance(value[key][2], dict):
-#                         new_value = '[complex value]'
-#                     diff += f"Property '{path}{key}' was updated. " \
-#                             f"From {prev_value} to {new_value}\n"
-#                 elif value[key][0] == 'added' \
-#                         and isinstance(value[key][1], dict):
-#                     diff += f"Property '{path}{key}' was " \
-#                             f"added with value: [complex value]\n"
-#                 elif value[key][0] == 'added' \
-#                         and not isinstance(value[key][1], dict):
-#                     new_value = f"{value[key][1]}"
-#                     if isinstance(value[key][1], str):
-#                         new_value = f"'{value[key][1]}'"
-#                     diff += f"Property '{path}{key}' was " \
-#                             f"added with value: {new_value}\n"
-#                 elif value[key][0] == 'deleted':
-#                     diff += f"Property '{path}{key}' was removed\n"
-#         if not isinstance(value, dict):
-#             return str(value)
-#         return diff
-#     return '\n' + walk(pre_diff, '', '')
-
 def build_diff_plain(pre_diff): # noqa: max-complexity=9
-    def walk(value, diff, path):
-        diff = ""
-        if isinstance(value, dict):
-            for node in value.keys():
-                if not isinstance(value[node], list):
-                    transform_dict_node(walk(), value[node], diff, path, node)
+    return walk(pre_diff, '')
 
-                elif value[node][0] == 'nested':
-                    diff += walk(value[node][1], diff, path + node + '.')
+#
+# def transform_value(value):
+#     if isinstance(value, dict):
+#         return 222
+#         # return '{' + ', '.join([f"'{key}': {transform_value(val)}" for key, val in value.items()]) + '}'
+#     else:
+#         return str(value)
 
-                elif value[node][0] == 'changed':
-                    diff += transform_changed_node(node, value[node][1],
-                                                   value[node][2], path)
 
-                elif value[node][0] == 'added':
-                    diff += transform_added_node(node, value[node][1], path)
+def walk(value, path):
+    diff = ''
+    # if isinstance(value, dict):
+    for node, val in value.items():
+        if not isinstance(val, list):
+            diff += transform_dict_node(val, path, node)
+        elif val[0] == 'nested':
+            diff += walk(val[1], f'{path}{node}.')
+        elif val[0] == 'changed':
+            diff += transform_changed_node(node, val[1], val[2], path)
+        elif val[0] == 'added':
+            diff += transform_added_node(node, val[1], path)
+        elif val[0] == 'deleted':
+            diff += transform_deleted_node(node, path)
+    # else:
+    #     return str.upper(value)
+    return diff
 
-                elif value[node][0] == 'deleted':
-                    diff += transform_deleted_node(node, path)
-        else:
-            return str(value)
-        return diff
-    return '\n' + walk(pre_diff, '', '')
+
+
+
+def transform_dict_node(value, path, node):
+    return f"Property '{path}{node}' was updated. From {value[1]} to {value[2]}.\n"
 
 
 def transform_deleted_node(node, path):
@@ -94,11 +64,6 @@ def transform_changed_node(node, prev_value_, new_value_, path):
         new_value = '[complex value]'
     return f"Property '{path}{node}' was updated. "\
            f"From {prev_value} to {new_value}\n"
-
-
-def transform_dict_node(func, value_node, diff, path, node):
-    if isinstance(value_node, dict):
-        func(value_node, diff, path + node + '.')
 
 
 def replace_bools_in_plain(diff):
