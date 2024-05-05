@@ -1,18 +1,9 @@
-def build_diff_plain(pre_diff): # noqa: max-complexity=9
+def build_diff_plain(pre_diff):
     return walk(pre_diff, '')
 
-#
-# def transform_value(value):
-#     if isinstance(value, dict):
-#         return 222
-#         # return '{' + ', '.join([f"'{key}': {transform_value(val)}" for key, val in value.items()]) + '}'
-#     else:
-#         return str(value)
 
-
-def walk(value, path):
+def walk(value, path): # noqa: max-complexity=7
     diff = ''
-    # if isinstance(value, dict):
     for node, val in value.items():
         if not isinstance(val, list):
             diff += transform_dict_node(val, path, node)
@@ -24,15 +15,12 @@ def walk(value, path):
             diff += transform_added_node(node, val[1], path)
         elif val[0] == 'deleted':
             diff += transform_deleted_node(node, path)
-    # else:
-    #     return str.upper(value)
     return diff
 
 
-
-
 def transform_dict_node(value, path, node):
-    return f"Property '{path}{node}' was updated. From {value[1]} to {value[2]}.\n"
+    return f"Property '{path}{node}' was updated." \
+           f" From {value[1]} to {value[2]}.\n"
 
 
 def transform_deleted_node(node, path):
