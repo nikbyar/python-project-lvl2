@@ -1,9 +1,9 @@
 from gendiff.pre_diff_maker import generate_pre_diff
 from gendiff.formatters.plain_formatter import make_plain
 from gendiff.formatters.stylish_formatter import make_stylish
+from gendiff.formatters.json_formatter import make_json
 from gendiff.data_parser import parse
 from gendiff.format_determiner import determine_format
-import json
 
 
 def generate_diff(first_file, second_file, file_format='stylish'):
@@ -15,4 +15,4 @@ def generate_diff(first_file, second_file, file_format='stylish'):
     elif file_format == 'stylish':
         return make_stylish(pre_diff)
     elif file_format == 'json':
-        return json.dumps(make_stylish(pre_diff))
+        return make_json(pre_diff)
