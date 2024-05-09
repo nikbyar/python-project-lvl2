@@ -1,5 +1,4 @@
 import pytest
-import json
 
 
 from gendiff.gendiff import generate_diff
@@ -23,7 +22,8 @@ with open('tests/fixtures/diff_string_plain', 'r') as f:
     diff_string_plain = f.read()
 
 
-diff_string_json = json.dumps(diff_string_stylish)
+with open('tests/fixtures/diff_string_json', 'r') as f:
+    diff_string_json = f.read()
 
 
 file1_json = 'tests/fixtures/fixture_file1.json'
