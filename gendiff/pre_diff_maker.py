@@ -1,4 +1,4 @@
-def generate_pre_diff(dict1, dict2, diff={}):  # noqa: max-complexity=15
+def generate_pre_diff(dict1, dict2, diff={}):
 
     all_keys = dict1.keys() | dict2.keys()
 
